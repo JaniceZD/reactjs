@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <div id="app">
+    </div>
+    <script src="https://cdn.bootcss.com/redux/4.0.4/redux.min.js"></script>
+    <script>
+      function render(store) {
+        var app = document.querySelector("#app");
+        app.innerHTML = `
+        <div>
+          你点击了 <span id="value">${store.getState()}</span> 次
+        </div>
+        <div>
+          <button id="add1" onclick="add1()">+1</button>
+          <button id="minus1" onclick="minus1()">-1</button>
+          <button id="addIfOdd" onclick="addIfOdd()">如果是单数就+1</button>
+          <button id="addAfter2Sec" onclick="addAsync()">两秒后+1</button>
+        </div>
+    	`;
+      }
+
+      function stateChanger(state = 0, action) {
+        switch (action.type) {
+          case "add":
+            return state + action.payload;
+          case "minus":
+            return state - action.payload;
+          default:
+            return state;
+        }
+      }
+
+      var store = Redux.createStore(stateChanger);
+      render(store);
+      store.subscribe(() => {
+        render(store);
+      });
+
+      function add1() {
+        store.dispatch({
+          type: "add",
+          payload: 1
+        });
+      }
+      function minus1() {
+        store.dispatch({
+          type: "minus",
+          payload: 1
+        });
+      }
+      function addIfOdd() {
+        var oddState = store.getState();
+        if (oddState % 2 === 1) {
+          store.dispatch({
+            type: "add",
+            payload: 1
+          });
+        }
+      }
+      function addAsync() {
+        setTimeout(() => {
+          store.dispatch({
+            type: "add",
+            payload: 1
+          });
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>
