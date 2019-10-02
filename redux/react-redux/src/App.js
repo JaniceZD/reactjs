@@ -3,7 +3,7 @@ import './App.css';
 import { connect } from 'react-redux'
 
 class App extends React.Component {
-  
+
   addIfOdd() {
     if (this.props.n % 2 === 1) {
       this.props.addIfOdd()
@@ -31,13 +31,13 @@ class App extends React.Component {
   }
 }
 
-function getPartialStore(state) {
+function mapStateToProps(state) {
   return {
     n: state.n
   }
 }
 
-function actionCreator(dispatch) {
+function mapDispatchToProps(dispatch) {
   return {
     add1: () => dispatch({ type: 'add', payload: 1 }),
     minus1: () => dispatch({ type: 'minus', payload: 1 }),
@@ -47,4 +47,4 @@ function actionCreator(dispatch) {
 }
 
 //将两个参数合并起来，作为 props 传给 App
-export default connect(getPartialStore, actionCreator)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
