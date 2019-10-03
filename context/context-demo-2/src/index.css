@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.app {
+  padding: 40px;
+  font-size: 20px;
+}
+.box {
+  padding: 40px;
+  margin: 10px 0;
+}
+.box.gray {
+  background: #cdcdcd;
+}
+.box.pink {
+  background: pink;
+}
+button {
+  font-size: 16px;
+  padding: 5px 10px;
+}
